@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!-- Changes you make to this file will not be reviewed by the grader -->
+
+<html lang="en">
+    <head>
+        <title>Weather App</title>
+        <meta charset="utf-8">
+        <link href="style.css" rel="stylesheet">
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+
+    <body>
+
+    	<div id = "app">
+    		
+    		<div class = 'black stuff-box'>
+    			<h2> {{title}} </h2>
+    		</div>
+
+    		<div class = 'blue stuff-box'> 
+    			<h2>Your Location</h2>
+
+    			<h3 v-if = "typeof location === 'undefined' ">Fetching your Location Please Wait</h3>
+    			<p v-else >You are located in {{ location }} at coordinates ({{ latitude}}, {{longitude }})</p>
+    		</div>
+
+
+    		<div class = 'yellow stuff-box'>
+    			<h2>Current Conditions</h2>
+    			<h2 v-if = "typeof location === 'undefined' ">Fetching your Location Please Wait</h2>
+    			<div v-else>
+					<p>Current Weather Conditions @ {{ date }}</p>
+
+				
+	    			<ul style="display: inline-table; text-align: left;">
+	    				<li>Currently {{ temp }} F</li>
+	    				<li>High {{ high }} F</li>
+	    				<li>Low {{ low }} F</li>
+	    				<li>{{ weather }}</li>
+	    				<li> {{ humidity }}% humidity</li>
+	    				<li>{{ pressure }} hPa pressure</li>
+	    			</ul>	
+    				
+    			</div>
+    		</div>
+
+    		<div v-if = "typeof location !== 'undefined' " class = 'lightblue stuff-box'>
+    			<h2>5 day 3-hour forecast</h2>
+
+    			<p> <span style="color: red; font-weight: bold;">Unlikely {{unlikely}}</span> <span>Neutral {{neutral}}</span> <span style="color:  #0000cc; font-weight: bold;">Likely {{likely}}</span></p>
+
+    			<div class = "neutral stuff-box" v-for = "item in fiveDayForcast" v-on:click="cycle">
+    				<br>
+    				<h4 style="display: inline;">{{item.dt_txt}} <br></h4>
+    				<ul style="display: inline-table; text-align: left;">
+    					<li>Temperature {{item.main.temp}} F</li>
+    					<li>{{item.weather[0].description}}</li>
+    					<li>{{item.main.humidity}}% humidity</li>
+    					<li>{{item.main.pressure}} hPa</li>
+    				</ul>
+    				
+    			</div>
+
+    		</div>
+
+    	</div>
+        <script src="script.js"> </script>
+    </body>
+</html>
